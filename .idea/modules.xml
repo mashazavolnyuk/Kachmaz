@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/UniteTest/UniteTest.iml" filepath="$PROJECT_DIR$/UniteTest/UniteTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/diplom.iml" filepath="$PROJECT_DIR$/diplom.iml" />
     </modules>
   </component>

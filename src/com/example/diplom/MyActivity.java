@@ -10,9 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
 
-import javax.crypto.KeyAgreement;
-
-public class MyActivity extends Activity {
+class MyActivity extends Activity {
     TextView countText;
     EditText relax;
     LinearLayout startPointContainer;
@@ -21,7 +19,7 @@ public class MyActivity extends Activity {
     private ProgressDialog progress;
 
     private int seekBarValue = 2;
-    private Kazchmaz_multithread kazchmaz;
+    private KachmazModify kazchmaz;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -41,12 +39,10 @@ public class MyActivity extends Activity {
                 seekBarValue = i+2;
                 countText.setText(String.valueOf(seekBarValue));
             }
-
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
 
             }
-
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
                 updateCount();
@@ -67,7 +63,7 @@ public class MyActivity extends Activity {
 
     private void startCalc(){
 
-        kazchmaz = new Kazchmaz_multithread();
+        kazchmaz = new KachmazModify();
         double[] startPoint=new double[3];
         boolean isStartPointFull=true;
         for(int i=0;i<startPointContainer.getChildCount();i++){
@@ -142,11 +138,11 @@ public class MyActivity extends Activity {
 
     class ResultDialog extends DialogFragment{
 
-        private Kazchmaz_multithread kazchmaz;
+        private KachmazModify kazchmaz;
         private TextView resultTime;
         private long startTime;
 
-        public void setKazchmaz(Kazchmaz_multithread kazchmaz){
+        public void setKazchmaz(KachmazModify kazchmaz){
             this.kazchmaz = kazchmaz;
         }
 

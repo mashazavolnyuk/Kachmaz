@@ -8,7 +8,7 @@
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="select equation count"/>
+            android:text="выбрать размер матрицы"/>
     <LinearLayout android:layout_width="match_parent"
                   android:layout_height="wrap_content"
                   android:orientation="horizontal"
@@ -33,7 +33,7 @@
     <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="select start point"
+            android:text="выбрать начальную точку"
             />
     <LinearLayout
             android:id="@+id/startPointContainer"
@@ -44,7 +44,7 @@
     </LinearLayout>
     <TextView android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:text="relaxation function"
+              android:text="параметр релаксации"
             />
     <EditText android:layout_width="match_parent"
               android:layout_height="wrap_content"
@@ -62,6 +62,6 @@
             android:id="@+id/calcButton"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:text="Calculate"/>
+            android:text="Вычислить"/>
 </LinearLayout>
 

@@ -1,13 +1,13 @@
 package com.example.diplom;
 
+import android.os.SystemClock;
 import android.util.Log;
-
-import java.util.ArrayList;
 
 /**
  * Created by Merry on 21.10.15.
  */
-public class Kazchmaz implements Calc {
+public class KachmazModify implements Calc {
+
 //    private double[][] matrixA = {
 //            {1, 2, 3, 3},
 //            {3, 5, 7, 0},
@@ -33,19 +33,44 @@ public class Kazchmaz implements Calc {
     private double preNumerator = 0;//числитель
     private double vectorK = 0;
 
-    private double relaxationFunction = 10;
+    private double relaxationFunction = 20;
 
     private int iterationNumber = 0;
     private int localIterationJK = 0;
 
-    private int iterationCount = 5000;
+    private int threadCount = 2;
 
+    private int iterationCount = 5000;
+    private double allError;
+    private long resultTime;
+    private long startTime;
+
+
+    public KachmazModify(){
+       initializeUStep();
+
+    }
+    public void setStartPoint(double[] startPoint){
+
+        if(startPoint.length!=rowCount)
+            return;
+        uStep=startPoint;
+
+    }
+    public void setRelaxationFunction(double relax){
+
+        if(relax>0)
+            relaxationFunction=relax;
+
+    }
+    @Override
     public void calc() {
-        initializeUStep();
+        startTime = SystemClock.uptimeMillis();
         while (!isEnd()){
             iteration();
         }
         showResult();
+        resultTime = SystemClock.uptimeMillis() - startTime;
     }
 
     private void iteration(){
@@ -90,16 +115,22 @@ public class Kazchmaz implements Calc {
     }
 
     private boolean isEnd(){
-        if(iterationNumber % 10 == 0)
-            calcResultError();
-        if(iterationNumber < iterationCount)
-            return false;
-        else
-            return true;
+        double error = 0;
+        if(iterationNumber % 10 == 0){
+            error = calcResultError();
+            if(Math.abs(error) < 0.000001 || iterationNumber > iterationCount)
+                return true;
+        }
+        return false;
+
+//        if(iterationNumber < iterationCount)
+//            return false;
+//        else
+//            return true;
     }
 
-    private void calcResultError(){
-        double allError = 0;
+    private double calcResultError(){
+        allError = 0;
         for(int i=0;i<rowCount;i++){
             double sum = 0;
             for(int j=0;j<columnCount-1;j++)
@@ -115,9 +146,26 @@ public class Kazchmaz implements Calc {
 //            relaxationFunction = 0.5;
         Log.d("Error", "Iteration " + iterationNumber + "All Error = " + allError);
         Log.d("Error", "Result: x1=" + uStep[0] + ", x2=" + uStep[1] + ", x3=" + uStep[2]);
+        return allError;
+    }
+
+    public double[] getResult(){
+        return uStep;
+    }
+
+    public int getIterationNumber(){
+        return iterationNumber;
+    }
+
+    public double getError(){
+        return allError;
     }
 
     private void showResult(){
         Log.d("Result", "Result: x1="+ uStep[0] + ", x2=" + uStep[1] + ", x3=" + uStep[2]);
+    }
+
+    public long getResultTime() {
+        return resultTime;
     }
 }
